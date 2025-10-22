@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Student   RDB</string>
+    <string name="enter_your_details">Enter your details</string>
+    <string name="submit">Submit</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="fetch">Fetch</string>
+    <string name="delete_all">delete all</string>
+</resources>
