@@ -54,25 +54,21 @@ app/
 └── values/
 └── colors.xml, strings.xml
 
-yaml
-Copy code
-
 ---
 
 ## 🧰 How to Run
 
 1. Clone the repo:
-   ```bash
-   git clone https://github.com/<your-username>/StudentRDB.git
-Open the project in Android Studio.
+   
+   git clone https://github.com/ranjith-dsr/Student_RoomDB-App.git
 
 Run on an emulator or physical Android device.
 
 🧑‍💻 Author
 Ranjith D S
 Android Developer (Java)
-📧 Your email (optional)
-💼 GitHub Profile
+📧 ranjithforchatgpt@gmail.com
+
 
 💡 Future Enhancements
 Add update & delete for individual records
@@ -81,18 +77,4 @@ Implement ViewModel + LiveData
 
 Improve UI with Material Design components
 
-yaml
-Copy code
-
 ---
-
-### 💬 Next step:
-Once you paste this in your GitHub repo:
-1. Click **Add file → Create new file → name it `README.md`**
-2. Paste the text above.
-3. Replace `<your-username>` and optional email.
-4. Click **Commit changes** ✅
-
----
-
-Would you like me to include **a short GitHub project description & tags** (the text that appears at the top of your repo, under the project name)?
