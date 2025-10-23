@@ -1,19 +1,26 @@
 package com.example.studentrdb;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.studentrdb.adapter.StudentAdapter;
 import com.example.studentrdb.entity.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private EditText studentNameET, studentEmailET;
     private Button submitBTN, fetchBTN, deleteBTN;
+    private RecyclerView studentRV;
+    private List<Student> allStudentListFromDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +32,11 @@ public class MainActivity extends AppCompatActivity {
         submitBTN = findViewById(R.id.submitBTN);
         fetchBTN = findViewById(R.id.fetchBTN);
         deleteBTN = findViewById(R.id.deleteBTN);
+        studentRV = findViewById(R.id.studentRV);
 
+        studentRV.setLayoutManager(new LinearLayoutManager(this));
+
+        //create db instance
         StudentDatabase studentDatabase = StudentDatabase.getStudentDatabaseInstance(MainActivity.this);
 
         StudentDAO studentDAO = studentDatabase.studentDAO();
@@ -47,23 +58,35 @@ public class MainActivity extends AppCompatActivity {
         fetchBTN.setOnClickListener(v -> {
 
             //Fetch all users
-            List<Student> allStudentList = studentDAO.getAllStudentList();
-            if (allStudentList.isEmpty()) {
+            allStudentListFromDB = studentDAO.getAllStudentList();
+
+            // Safe null check
+            if (allStudentListFromDB == null || allStudentListFromDB.isEmpty()) {
+
+                //But if there’s a chance that method returns null, it’s still safer to do:
+                allStudentListFromDB = new ArrayList<>();
                 Toast.makeText(this, "No records found!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            for (Student student1 : allStudentList) {
-                Toast.makeText(this, "name : " + student1.getStudentName(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "email : " + student1.getStudentEmail(), Toast.LENGTH_SHORT).show();
-            }
-
+            StudentAdapter studentAdapter = new StudentAdapter(allStudentListFromDB);
+            studentRV.setVisibility(View.VISIBLE);
+            studentRV.setAdapter(studentAdapter);
 
         });
 
         deleteBTN.setOnClickListener(v -> {
             studentDAO.deleteAll();
-            Toast.makeText(this, "Records deleted successfully ", Toast.LENGTH_SHORT).show();
+            studentDAO.resetAutoIncrement();
+            /*
+            ✅ Solution: Reset the Auto-Increment Counter
+
+                In SQLite, the auto-increment value is stored
+                  in a special table named sqlite_sequence.
+                So you can reset it manually after deleting all rows.
+
+             */
+            Toast.makeText(this, "Records deleted and ID reset successfully", Toast.LENGTH_SHORT).show();
         });
     }
 }

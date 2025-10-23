@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:paddingBottom="16dp"
         android:text="@string/enter_your_details"
         android:textSize="24sp"
@@ -78,6 +78,13 @@
         android:text="@string/delete_all"
         android:textAllCaps="false"
         android:textColor="@android:color/white" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/studentRV"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginTop="20dp" />
 
 
 </LinearLayout>

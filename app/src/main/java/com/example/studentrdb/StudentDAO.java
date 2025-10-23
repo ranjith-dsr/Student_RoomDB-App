@@ -19,4 +19,8 @@ public interface StudentDAO {
 
     @Query("DELETE FROM student_table")
     void deleteAll();
+
+    // Reset auto-increment counter for student_table
+    @Query("DELETE FROM sqlite_sequence WHERE name = 'student_table'")
+    void resetAutoIncrement();
 }
